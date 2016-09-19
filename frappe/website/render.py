@@ -104,6 +104,10 @@ def render_page(path):
 	"""get page html"""
 	out = None
 
+	on_render_page_hooks = frappe.get_hooks('on_render_page')
+	for hook in on_render_page_hooks:
+		frappe.call(hook, path=path)
+
 	if can_cache():
 		# return rendered page
 		page_cache = frappe.cache().hget("website_page", path)
@@ -113,6 +117,7 @@ def render_page(path):
 	if out:
 		frappe.local.response.from_cache = True
 		return out
+
 
 	return build(path)
 
