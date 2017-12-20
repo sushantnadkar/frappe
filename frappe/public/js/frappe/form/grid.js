@@ -109,6 +109,29 @@ frappe.ui.form.Grid = Class.extend({
 			});
 
 			frappe.run_serially(tasks);
+
+			// Hack to delete table rows while making production order in sales order
+			dialog_title = $("body > div.modal.fade.in > div.modal-dialog > div > div.modal-header > div > div.col-xs-7 > h4").text();
+
+			if (dialog_title == "Select Items to Manufacture") {
+				$("body > div.modal.fade.in > div.modal-dialog > div > div.modal-body.ui-front > \
+					div > div.form-page > div > div > div > form > div > div > div > div.grid-body > \
+					div.rows > div:has( > div > div.row-index.sortable-handle.col.col-xs-1 > input:checked)").remove();
+
+					rows = $("body > div.modal.fade.in > div.modal-dialog > div > div.modal-body.ui-front > \
+						div > div.form-page > div > div > div > form > div > div > div > div.grid-body > \
+						div.rows > div");
+
+						for(i = 0; i < $(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span").length; i++) {
+					$(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span")[i].textContent = i+1;
+				}
+
+				$("body > div.modal.fade.in > div.modal-dialog > div > div.modal-body.ui-front > div > \
+					div.form-page > div > div > div > form > div > div > div > div.grid-body > \
+					div.small.form-clickable-section.grid-footer > div > div.col-sm-6.grid-buttons > \
+					button.btn.btn-xs.btn-danger.grid-remove-rows").toggleClass("hide");
+			}
+
 		});
 	},
 	select_row: function(name) {
