@@ -111,20 +111,20 @@ frappe.ui.form.Grid = Class.extend({
 			frappe.run_serially(tasks);
 
 			// Hack to delete table rows while making production order in sales order
-			dialog_title = $(".modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .modal-title").text();
+			dialog_title = $(".modal.fade.in .modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .modal-title").text();
 
 			if (dialog_title == "Select Items to Manufacture") {
-				$(".modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) \
+				$(".modal.fade.in .modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) \
 					.grid-body .grid-row:has(input:checked)").remove();
 
-					rows = $(".modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .grid-body .grid-row");
+				var rows = $(".modal.fade.in .modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .grid-body .grid-row");
 
-						for(i = 0; i < $(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span").length; i++) {
-							$(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span")[i].textContent = i+1;
-						}
+				for(i = 0; i < $(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span").length; i++) {
+					$(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span")[i].textContent = i+1;
+				}
 
-						$(".modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .grid-body")
-							.find("button.grid-remove-rows").toggleClass("hide");
+				$(".modal.fade.in .modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .grid-body")
+					.find("button.grid-remove-rows").toggleClass("hide");
 			}
 
 		});
