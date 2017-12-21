@@ -111,25 +111,20 @@ frappe.ui.form.Grid = Class.extend({
 			frappe.run_serially(tasks);
 
 			// Hack to delete table rows while making production order in sales order
-			dialog_title = $("body > div.modal.fade.in > div.modal-dialog > div > div.modal-header > div > div.col-xs-7 > h4").text();
+			dialog_title = $(".modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .modal-title").text();
 
 			if (dialog_title == "Select Items to Manufacture") {
-				$("body > div.modal.fade.in > div.modal-dialog > div > div.modal-body.ui-front > \
-					div > div.form-page > div > div > div > form > div > div > div > div.grid-body > \
-					div.rows > div:has( > div > div.row-index.sortable-handle.col.col-xs-1 > input:checked)").remove();
+				$(".modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) \
+					.grid-body .grid-row:has(input:checked)").remove();
 
-					rows = $("body > div.modal.fade.in > div.modal-dialog > div > div.modal-body.ui-front > \
-						div > div.form-page > div > div > div > form > div > div > div > div.grid-body > \
-						div.rows > div");
+					rows = $(".modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .grid-body .grid-row");
 
 						for(i = 0; i < $(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span").length; i++) {
-					$(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span")[i].textContent = i+1;
-				}
+							$(rows).find(".row-index.sortable-handle.col.col-xs-1").find("span")[i].textContent = i+1;
+						}
 
-				$("body > div.modal.fade.in > div.modal-dialog > div > div.modal-body.ui-front > div > \
-					div.form-page > div > div > div > form > div > div > div > div.grid-body > \
-					div.small.form-clickable-section.grid-footer > div > div.col-sm-6.grid-buttons > \
-					button.btn.btn-xs.btn-danger.grid-remove-rows").toggleClass("hide");
+						$(".modal-dialog:has(div[data-fieldtype=\"Table\"][data-fieldname=\"items\"]) .grid-body")
+							.find("button.grid-remove-rows").toggleClass("hide");
 			}
 
 		});
