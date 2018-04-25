@@ -133,6 +133,7 @@ def get_list_context(context=None):
 		"get_list": get_address_list,
 		"row_template": "templates/includes/address_row.html",
 		'no_breadcrumbs': True,
+		"show_sidebar": True
 	}
 
 def get_address_list(doctype, txt, filters, limit_start, limit_page_length = 20, order_by = None):
