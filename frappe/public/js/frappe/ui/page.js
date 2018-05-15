@@ -367,7 +367,7 @@ frappe.ui.Page = Class.extend({
 		} else {
 			var button = this.inner_toolbar.find('button')
 				.filter((i, btn) =>  label.includes($(btn).text()));
-			if( button.length == 0 ) {
+			if( button.length === 0 ) {
 				return $('<button class="btn btn-default btn-xs" style="margin-left: 10px;">'+__(label)+'</btn>')
 					.on("click", _action)
 					.appendTo(this.inner_toolbar.removeClass("hide"));
