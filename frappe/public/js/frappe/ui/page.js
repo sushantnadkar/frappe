@@ -371,6 +371,8 @@ frappe.ui.Page = Class.extend({
 				return $('<button class="btn btn-default btn-xs" style="margin-left: 10px;">'+__(label)+'</btn>')
 					.on("click", _action)
 					.appendTo(this.inner_toolbar.removeClass("hide"));
+			} else {
+				return button;
 			}
 		}
 	},
